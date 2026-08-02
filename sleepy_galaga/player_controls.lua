@@ -1,0 +1,5 @@
+
+function shoot(player)
+
+end
+
