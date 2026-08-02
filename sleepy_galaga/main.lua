@@ -4,8 +4,6 @@ function _init()
 
     anim_timer = 0
 
-    bx = 0
-    by = 0
     bullet = 2
     bullet_frames = {2, 3}
     
@@ -16,16 +14,10 @@ end
 function _update()
     anim_timer += 1
 
-    if btn(0) then player_coords.x -= speed end
+    player_controls()
 
-    if btn(1) then player_coords.x += speed end
-
-    if btn(2) then player_coords.y -= speed end
-    
-    if btn(3) then player_coords.y += speed end 
-
-    if anim_timer % 5 == 0 then
-        bullet = animate(bullet, bullet_frames, bx, by)
+    if anim_timer % 2 == 0 then
+        bullet = animate(bullet, bullet_frames)
     end
 
     if anim_timer >= 400 then
