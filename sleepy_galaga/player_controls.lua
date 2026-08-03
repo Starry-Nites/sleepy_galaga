@@ -1,4 +1,4 @@
-function player_controls()
+function playerControls()
     if btn(0) then player_coords.x -= speed end
 
     if btn(1) then player_coords.x += speed end
