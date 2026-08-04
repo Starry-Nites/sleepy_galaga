@@ -2,9 +2,10 @@
 function _init()
     
     -- Change to somewhere on the bottom of the screen. This is where the player starts.
-    player_coords = {x=0, y=0}
+    player = {x=0, y=0, width=8,height=8}
     -- This is the number added to the player's coordinates when they move. Dictates how quickly they move.
     speed = 2
+    -- Width and height of the sprites; Used for collisions
 
     -- INCREMENTALS --
     -- These values are added to during every update() call. Used to track time/frames
@@ -37,6 +38,8 @@ function _update()
 
     -- Moves player
     playerControls()
+    -- Keeps player within screen
+    playerBounds()
 
     -- Every two frames, change bullet sprite. Change to only occur when the bullet is on screen
     if anim_timer == 2 then
@@ -45,8 +48,8 @@ function _update()
     end
     -- Every five frames, animate and move the enemies
     if movement_timer == 5 then
-        animate_enemies()
-        move_enemies()
+        animateEnemies()
+        moveEnemies()
         movement_timer = 0
     end
 
@@ -67,5 +70,5 @@ function _draw()
     spr(bullet, bx, by)
 
     -- Draw player sprite at the player coordinates
-    spr(1, player_coords.x, player_coords.y)
+    spr(1, player.x, player.y)
 end
