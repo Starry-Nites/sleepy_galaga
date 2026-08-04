@@ -1,6 +1,8 @@
 function _init()
-    player_coords = {x=0, y=0}
-    player_width = 0
+    player = {x=0, y=0}
+
+    player.width = 8
+    player.height = 8
     speed = 2
 
     anim_timer = 0
@@ -18,6 +20,18 @@ function _init()
 
 end
 
+function _draw()
+    cls()
+    
+    for i = 1, #enemies, 1 do
+        spr(enemies[i].sprite, enemies[i].x, enemies[i].y)
+    end
+
+    spr(bullet, bx, by)
+
+    spr(1, player.x, player.y)
+end
+
 function _update()
     anim_timer += 1
 
@@ -33,16 +47,5 @@ function _update()
     end
 
     moveEnemies()
-end
-
-function _draw()
-    cls()
-    
-    for i = 1, #enemies, 1 do
-        spr(enemies[i].sprite, enemies[i].x, enemies[i].y)
-    end
-
-    spr(bullet, bx, by)
-
-    spr(1, player_coords.x, player_coords.y)
+    check_collision()
 end
