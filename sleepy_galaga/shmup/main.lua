@@ -53,8 +53,6 @@ function _update()
         movement_timer = 0
     end
 
-    -- if stageEnd then
-    --     startShimprovement()
 end
 
 -- Drawn once every frame
