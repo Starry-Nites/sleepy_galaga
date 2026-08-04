@@ -10,7 +10,11 @@ function animate(sprite, frames)
     end
     return frames[indexOf(frames, sprite) + 1] -- returns the next item in the list of frames.
 end
-    
+ -- Finds the distance in pico pixels between two points on the canvas.
+function distance(x1, y1, x2, y2)
+    return ((x2 - x1) / (y1 - y2)) ^ -2
+end
+
 -- NOT MY CODE!! 
 -- https://stackoverflow.com/a/69651531/21190158
 

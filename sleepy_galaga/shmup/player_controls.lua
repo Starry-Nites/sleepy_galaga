@@ -1,3 +1,4 @@
+-- Uses arrow keys to add/subtract to/from the player's coordinates
 function playerControls()
     if btn(0) then player_coords.x -= speed end
 
