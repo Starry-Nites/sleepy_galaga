@@ -1,20 +1,28 @@
 enemies = {}
 
 -- VERY BASIC ENEMIES FOR NOW!!
-function newEnemy(xCoord, yCoord, spr, spe, pa)
-    enemy = {x = xCoord,
-    y = yCoord, 
-    sprite = spr, 
+-- Functions as a constructor. Takes a starting x, a starting y, 
+-- the starting sprite, all frames in the animation, and the speed.
+function newEnemy(xCoord, yCoord, spr, frms, spe, pa)
+    enemy = {
+    x = xCoord,
+    y = yCoord,
+    sprite = spr,  
+    frames = frms, 
     speed = spe,
     pass = pa, 
     width = 8, 
-    height = 8}
-    
+    height = 8
+    }
+
+    -- Add this enemy to the list of enemies
     enemies[#enemies+1] = enemy
 
     return enemy
 end
 
+
+-- Make the enemies move across the screen
 function moveEnemies()
     track = 1
     for i = 1, #enemies, 1 do
@@ -40,27 +48,22 @@ function overlap(a,b)
 	return not (test1 or test2 or test3 or test4)
 end
 
-function check_collision()
+function checkEnemyCollision()
     for i = 1, #enemies, 1 do
         if overlap(player, enemies[i]) then
             stop()
         end
     end
 end
--- Unnecessary. Just add directly to the values of the specific enemy.
-function setCoords(enemy, x, y)
-    xCoord = nil or x
-    yCoord = nil or y
 
-    if not (xCoord ~= nil) then 
-        enemy.x = xCoord
+-- Increment the sprites to make an animation
+function animateEnemies()
+    for i = 1, #enemies, 1 do
+        enemies[i].sprite = animate(enemies[i].sprite, enemies[i].frames)
     end
-    if not (yCoord ~= nil) then
-        enemy.y = yCoord
-    end
-
 end
 
+-- Sends the enemies list 
 function getEnemies()
     return enemies
 end

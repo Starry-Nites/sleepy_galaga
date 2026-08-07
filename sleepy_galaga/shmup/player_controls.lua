@@ -1,3 +1,4 @@
+-- Uses arrow keys to add/subtract to/from the player's coordinates
 function playerControls()
     if btn(0) then player.x -= speed end
 
@@ -16,6 +17,4 @@ function playerBounds()
     end
 end
 
-function shoot(player)
-end
 

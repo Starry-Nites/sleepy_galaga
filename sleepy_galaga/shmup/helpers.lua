@@ -10,7 +10,11 @@ function animate(sprite, frames)
     end
     return frames[indexOf(frames, sprite) + 1] -- returns the next item in the list of frames.
 end
-    
+ -- Finds the distance in pico pixels between two points on the canvas.
+function distance(x1, y1, x2, y2)
+    return ((x2 - x1) / (y1 - y2)) ^ -2
+end
+
 -- NOT MY CODE!! 
 -- https://stackoverflow.com/a/69651531/21190158
 
@@ -22,4 +26,12 @@ function indexOf(array, value)
         end
     end
     return nil
+end
+
+function overlap(a,b)
+	local test1 = a.x > (b.x +b.width)
+	local test2 = a.y > (b.y +b.height)
+	local test3 = (a.x+a.width) <b.x
+	local test4 = (a.y+a.height) <b.y
+	return not (test1 or test2 or test3 or test4)
 end
