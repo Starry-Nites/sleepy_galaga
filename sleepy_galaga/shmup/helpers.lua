@@ -27,3 +27,11 @@ function indexOf(array, value)
     end
     return nil
 end
+
+function overlap(a,b)
+	local test1 = a.x > (b.x +b.width)
+	local test2 = a.y > (b.y +b.height)
+	local test3 = (a.x+a.width) <b.x
+	local test4 = (a.y+a.height) <b.y
+	return not (test1 or test2 or test3 or test4)
+end

@@ -1,8 +1,12 @@
 -- Once at program start
 function _init()
-    pipeManiaActive = true -- change to false later
+    frames = 0
+    cooldown = 0
+    
+    pipeManiaActive = false -- change to false later
+
     -- Change to somewhere on the bottom of the screen. This is where the player starts.
-    player = {x=0, y=0, width=8,height=8}
+    player = {x=0, y=120, width=8,height=8}
     -- This is the number added to the player's coordinates when they move. Dictates how quickly they move.
     speed = 2
     -- Width and height of the sprites; Used for collisions
@@ -23,8 +27,8 @@ function _init()
     palt (0, false)
 
     -- Creates two new enemies for testing purposes
-    newEnemy(23, 45, 4, {4, 6}, 1)
-    newEnemy(56, 2, 5, {5, 7}, 1)
+    newEnemy(23, 45, 4, {4, 6}, 3, 0)
+    newEnemy(56, 2, 5, {5, 7}, 3, 0)
 
     -- List of enemy pseudobjects
     enemies = getEnemies()
@@ -36,17 +40,15 @@ end
 
 -- Once every frame
 function _update()
-    -- Increments the incrementals
-    movement_timer += 1
-    anim_timer += 1
-    waitTimer += 1
 
-    
+    -- Increments the incrementals
+
     if pipeManiaActive then
+        waitTimer += 1
         pipes = getPipes()
         pipeControls(pipe)
         Cpoints = findConnectionPoints(pipe, pipe.rotation)
-        if drop() and waitTimer >= 20 then
+        if drop() and waitTimer >= 3 then
             pipe = newPipe(0, 0, choosePipe(), 0)
             waitTimer = 0
         end
@@ -56,26 +58,47 @@ function _update()
                 print("Hello")
             end
         end
+
     else
+        frames += 1
+        cooldown += 1
+        movement_timer += 1
+        anim_timer += 1
+        playerBullets = getPlayerBullets()
+        enemyBullets = getEnemyBullets()
+    
         -- Moves player
         playerControls()
         -- Keeps player within screen
         playerBounds()
 
-        -- Every two frames, change bullet sprite. Change to only occur when the bullet is on screen
-        if anim_timer == 2 then
-            bullet = animate(bullet, bullet_frames)
-            anim_timer = 0
-        end
         -- Every five frames, animate and move the enemies
         if movement_timer == 5 then
             animateEnemies()
             moveEnemies()
+            movePlayerBullets()
+            animatePlayerBullets()
+            moveEnemyBullets()
+            animateEnemyBullets()
             movement_timer = 0
         end
+
+        if frames == 100 then
+            for i = 1, #enemies, 1 do
+                newEnemyBullet(enemies[i].x, enemies[i].y, 2, {2, 3}, 5)
+            end
+            frames = 0
+        end
+
+        if cooldown >= 20 and btn(4) then
+            newPlayerBullet(player.x, player.y, 2, {2, 3}, 5)
+            cooldown = 0
+        end
+
+        checkCollision()
+        checkPlayerBulletCollision()
+        checkEnemyBulletCollision()
     end
-    
-    
 end
 
 -- Drawn once every frame
@@ -94,8 +117,13 @@ function _draw()
         end
 
         -- Draw bullets. Change to only function when bullet should be on screen. NOTE Also make bullet pseudobject. Very similar to enemies pseudobject
-        spr(bullet, bx, by)
+        for i = 1, #playerBullets, 1 do
+            spr(playerBullets[i].sprite, playerBullets[i].x, playerBullets[i].y)
+        end
 
+        for i = 1, #enemyBullets, 1 do
+            spr(enemyBullets[i].sprite, enemyBullets[i].x, enemyBullets[i].y)
+        end
         -- Draw player sprite at the player coordinates
         spr(1, player.x, player.y)
     end

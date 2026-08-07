@@ -3,13 +3,16 @@ enemies = {}
 -- VERY BASIC ENEMIES FOR NOW!!
 -- Functions as a constructor. Takes a starting x, a starting y, 
 -- the starting sprite, all frames in the animation, and the speed.
-function newEnemy(xCoord, yCoord, spr, frms, spe)
+function newEnemy(xCoord, yCoord, spr, frms, spe, pa)
     enemy = {
     x = xCoord,
     y = yCoord,
     sprite = spr,  
     frames = frms, 
-    speed = spe
+    speed = spe,
+    pass = pa, 
+    width = 8, 
+    height = 8
     }
 
     -- Add this enemy to the list of enemies

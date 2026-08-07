@@ -17,6 +17,4 @@ function playerBounds()
     end
 end
 
-function shoot(player)
-end
 

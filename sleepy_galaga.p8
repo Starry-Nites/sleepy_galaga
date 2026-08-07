@@ -5,6 +5,7 @@ __lua__
 #include sleepy_galaga/shmup/player_controls.lua
 #include sleepy_galaga/shmup/helpers.lua
 #include sleepy_galaga/shmup/enemy.lua
+#include sleepy_galaga/shmup/bullet.lua
 #include sleepy_galaga/pipe-mania/pipe.lua
 #include sleepy_galaga/pipe-mania/pipe_controls.lua
 __gfx__
