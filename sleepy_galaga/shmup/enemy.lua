@@ -21,7 +21,6 @@ function newEnemy(xCoord, yCoord, spr, frms, spe, pa)
     return enemy
 end
 
-
 -- Make the enemies move across the screen
 function moveEnemies()
     track = 1
@@ -48,7 +47,7 @@ function overlap(a,b)
 	return not (test1 or test2 or test3 or test4)
 end
 
-function checkEnemyCollision()
+function checkCollision()
     for i = 1, #enemies, 1 do
         if overlap(player, enemies[i]) then
             stop()

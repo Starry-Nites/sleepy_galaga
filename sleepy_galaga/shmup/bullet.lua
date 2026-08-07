@@ -42,8 +42,6 @@ function checkPlayerBulletCollision()
     for i = 1, #enemies, 1 do
         for j = 1, #playerBullets, 1 do
             if overlap(playerBullets[j], enemies[i]) then
-                --deli(playerBullets, j)
-                --deli(enemies, i)
                 stop()
             end
         end
