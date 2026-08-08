@@ -26,9 +26,18 @@ function _init()
     palt (15, true)
     palt (0, false)
 
+
     -- Creates two new enemies for testing purposes
-    newEnemy(23, 45, 4, {4, 6}, 3, 0)
-    newEnemy(56, 2, 5, {5, 7}, 3, 0)
+    for i = 1, 5 do
+        randx1 = flr(rnd(65))
+        randx2 = flr(rnd(65))
+        randy1 = flr(rnd(70))
+        randy2 = flr(rnd(70))
+        newEnemy(randx1, randy1, 4, {4, 6}, 1.5, 0)
+        newEnemy(randx2, randy2, 5, {5, 7}, 1.5, 0)
+        newEnemy((128 - randx1), randy1, 4, {4, 6}, 1.5, 0)
+        newEnemy((128 - randx2), randy2, 5, {5, 7}, 1.5, 0)
+    end
 
     -- List of enemy pseudobjects
     enemies = getEnemies()
@@ -84,9 +93,11 @@ function _update()
         end
 
         if frames == 100 then
-            for i = 1, #enemies, 1 do
-                newEnemyBullet(enemies[i].x, enemies[i].y, 2, {2, 3}, 5)
-            end
+            randindex = flr(rnd(21))
+            randindex2 = flr(rnd(21))
+            randindex3 = flr(rnd(21))
+            newEnemyBullet(enemies[randindex].x, enemies[randindex].y, 2, {2, 3}, 5)
+            newEnemyBullet(enemies[randindex2].x, enemies[randindex2].y, 2, {2, 3}, 5)
             frames = 0
         end
 
